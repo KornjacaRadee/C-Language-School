@@ -1,0 +1,31 @@
+﻿<Window x:Class="SR50_2021_POP2022.Windows.LessonUpdate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SR50_2021_POP2022.Windows"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Title="LessonUpdate" Height="505" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Oznaka" HorizontalAlignment="Left" Margin="32,117,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="69"/>
+        <Label Content="Dodavanje casa&#xD;&#xA;" HorizontalAlignment="Left" Margin="32,22,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Height="67" Width="272"/>
+        <TextBox x:Name="id" HorizontalAlignment="Left" Height="34" Margin="139,117,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="211"/>
+        <ListBox x:Name="professorList"  Margin="140,167,450,244"/>
+        <Label Content="Profesor" HorizontalAlignment="Left" Margin="32,182,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="76"/>
+        <DatePicker Name="datePicker" HorizontalAlignment="Left" Margin="139,263,0,0" VerticalAlignment="Top" Height="42" Width="211"/>
+        <Button Content="Dodaj cas" HorizontalAlignment="Left" Margin="508,405,0,0" VerticalAlignment="Top" Height="47" Width="155" Click="Button_Click"/>
+        <Label Content="Datum &#xD;&#xA;odrzavanja" HorizontalAlignment="Left" Margin="32,247,0,0" VerticalAlignment="Top" FontSize="18" Height="58" Width="107"/>
+        <Label Content="Vreme" HorizontalAlignment="Left" Margin="32,334,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="61"/>
+        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="139,341,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" Height="34"/>
+        <Label Content="Duzina" HorizontalAlignment="Left" Margin="32,409,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="65"/>
+        <TextBox Name="duration" HorizontalAlignment="Left" Margin="139,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" Height="35"/>
+        <CheckBox Name="isReserved" Content="Rezervisan" HorizontalAlignment="Left" Margin="434,114,0,0" VerticalAlignment="Top" Height="40" Width="120" Checked="isReserved_Checked" Unchecked="isReserved_Unchecked" FontSize="14"/>
+        <Label Content="Student" HorizontalAlignment="Left" Margin="434,158,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="76"/>
+        <ListBox Name="studentList" Margin="434,197,137,235"/>
+        <Rectangle x:Name="studentRectangle" HorizontalAlignment="Left" Height="109" Margin="410,167,0,0" Stroke="White" VerticalAlignment="Top" Width="296" Fill="White"/>
+
+    </Grid>
+</Window>

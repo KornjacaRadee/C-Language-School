@@ -117,11 +117,17 @@
     <Compile Include="Windows\CreateSchool.xaml.cs">
       <DependentUpon>CreateSchool.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\LessonUpdate.xaml.cs">
+      <DependentUpon>LessonUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProfessorUpdate.xaml.cs">
       <DependentUpon>ProfessorUpdate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SchoolUpdate.xaml.cs">
       <DependentUpon>SchoolUpdate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ShowLesson.xaml.cs">
+      <DependentUpon>ShowLesson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ShowProfessor.xaml.cs">
       <DependentUpon>ShowProfessor.xaml</DependentUpon>
@@ -188,11 +194,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\LessonUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ProfessorUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SchoolUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ShowLesson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

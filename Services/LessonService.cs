@@ -22,6 +22,11 @@ namespace SR50_2021_POP2022.Services
             return repostory.GetAll().Where(p => p.IsActive).ToList();
         }
 
+        public List<Lesson> GetActiveLessonsById(string email)
+        {
+            return repostory.GetAll().Where(p => p.IsActive && p.Id.Contains(email)).ToList();
+        }
+
 
 
 

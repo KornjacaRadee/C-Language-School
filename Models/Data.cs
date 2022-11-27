@@ -83,6 +83,7 @@ namespace SR50_2021_POP2022.Models
                 IsActive = true
             };
 
+
             User user2 = new User
             {
                 Email = "mika@gmail.com",

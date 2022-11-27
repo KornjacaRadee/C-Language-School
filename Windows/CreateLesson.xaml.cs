@@ -76,10 +76,8 @@ namespace SR50_2021_POP2022.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(datePicker.Text);
             string[] list = datePicker.Text.Split('/');
             string[] times = time.Text.Split(':');
-            MessageBox.Show(list[2]+" " + (list[1]) + " " + (list[0]) + " ");
             string ide = id.Text;
             Professor profesor = FindProfessor();
             DateTime dateFinal = new DateTime(int.Parse(list[2]), int.Parse(list[0]), int.Parse(list[1]), int.Parse(times[0]), int.Parse(times[1]), 0);
@@ -98,7 +96,9 @@ namespace SR50_2021_POP2022.Windows
                     Student = student,
                     IsActive = true
                 };
-                MessageBox.Show(lesson.ToString());
+                Data.Instance.LessonService.Add(lesson);
+                Data.Instance.Initialize();
+
             }
             else
             {
@@ -108,11 +108,14 @@ namespace SR50_2021_POP2022.Windows
                     Professor = profesor,
                     Date = dateFinal,
                     Duration = trajanje,
-                    IsReserved = true,
+                    IsReserved = false,
                     IsActive = true
                 };
-            MessageBox.Show(lesson.ToString());
+                Data.Instance.LessonService.Add(lesson);
+                Data.Instance.Initialize();
+
             }
+            
 
             
 

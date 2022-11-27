@@ -17,6 +17,7 @@
                 <MenuItem Header="Prikazi profesore" Click="showProfessor_Click"></MenuItem>
                 <MenuItem Header="Prikazi skole" Click="showSchools_Click"></MenuItem>
                 <MenuItem Header="Prikazi Studente" Click="showStudents_Click"></MenuItem>
+                <MenuItem Header="Prikazi Casove" Click="showLessons_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="List" Width="58" FontFamily="Cascadia Mono SemiBold" FontSize="18"></MenuItem>
         </Menu>

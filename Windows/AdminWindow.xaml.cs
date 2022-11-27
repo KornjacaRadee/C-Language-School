@@ -46,6 +46,14 @@ namespace SR50_2021_POP2022.Windows
             window1.Show();
 
         }
+        private void showLessons_Click(object sender, RoutedEventArgs e)
+        {
+
+            ShowLesson window1 = new ShowLesson();
+            window1.Show();
+
+        }
+
         private void showSchools_Click(object sender, RoutedEventArgs e)
         {
 
