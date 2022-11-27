@@ -1,0 +1,24 @@
+﻿<Window x:Class="SR50_2021_POP2022.Windows.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SR50_2021_POP2022.Windows"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="450" Width="800">
+    <Grid>
+        <Menu>
+            <MenuItem Header="Create" FontSize="18" FontFamily="Cascadia Mono SemiBold">
+                <MenuItem Header="Novi korisnik" Click="createProfessor_Click"></MenuItem>
+                <MenuItem Header="Novi cas"   Click="createClass_Click" ></MenuItem>
+                <MenuItem Header="Nova Skola"  Click="createSchool_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Show" FontSize="18" FontWeight="Bold" FontFamily="Cascadia Mono SemiBold" >
+                <MenuItem Header="Prikazi profesore" Click="showProfessor_Click"></MenuItem>
+                <MenuItem Header="Prikazi skole" Click="showSchools_Click"></MenuItem>
+                <MenuItem Header="Prikazi Studente" Click="showStudents_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="List" Width="58" FontFamily="Cascadia Mono SemiBold" FontSize="18"></MenuItem>
+        </Menu>
+    </Grid>
+</Window>

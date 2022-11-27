@@ -8,12 +8,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>SR50_2021_POP2022</RootNamespace>
     <AssemblyName>SR50-2021-POP2022</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -24,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,20 +58,90 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Config.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    </Compile>
+    <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\EGender.cs" />
+    <Compile Include="Models\EUserType.cs" />
+    <Compile Include="Models\Lesson.cs" />
+    <Compile Include="Models\Professor.cs" />
+    <Compile Include="Models\School.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Repositories\AddressRepository.cs" />
+    <Compile Include="Repositories\AdministratorRepository.cs" />
+    <Compile Include="Repositories\IAddressRepository.cs" />
+    <Compile Include="Repositories\IAdministratorRepository.cs" />
+    <Compile Include="Repositories\IFilePersistence.cs" />
+    <Compile Include="Repositories\ILessonRepository.cs" />
+    <Compile Include="Repositories\IProfessorRepository.cs" />
+    <Compile Include="Repositories\ISchoolRepository.cs" />
+    <Compile Include="Repositories\IStudentRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\LessonRepository.cs" />
+    <Compile Include="Repositories\ProfessorRepository.cs" />
+    <Compile Include="Repositories\SchoolRepository.cs" />
+    <Compile Include="Repositories\StudentRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\AddressService.cs" />
+    <Compile Include="Services\AdministratorService.cs" />
+    <Compile Include="Services\IAddressService.cs" />
+    <Compile Include="Services\IAdministratorService.cs" />
+    <Compile Include="Services\ILessonService.cs" />
+    <Compile Include="Services\IProfessorService.cs" />
+    <Compile Include="Services\ISchoolService.cs" />
+    <Compile Include="Services\IStudentService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\LessonService.cs" />
+    <Compile Include="Services\ProfessorService.cs" />
+    <Compile Include="Services\SchoolService.cs" />
+    <Compile Include="Services\StudentService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="CustomExceptions\UserNotFoundException.cs" />
+    <Compile Include="Windows\AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CreateLesson.xaml.cs">
+      <DependentUpon>CreateLesson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CreateProfessor.xaml.cs">
+      <DependentUpon>CreateProfessor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CreateSchool.xaml.cs">
+      <DependentUpon>CreateSchool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProfessorUpdate.xaml.cs">
+      <DependentUpon>ProfessorUpdate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SchoolUpdate.xaml.cs">
+      <DependentUpon>SchoolUpdate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ShowProfessor.xaml.cs">
+      <DependentUpon>ShowProfessor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ShowSchoolcs.xaml.cs">
+      <DependentUpon>ShowSchoolcs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\StudentShow.xaml.cs">
+      <DependentUpon>StudentShow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\StudentUpdate.xaml.cs">
+      <DependentUpon>StudentUpdate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UnregisteredPanel.xaml.cs">
+      <DependentUpon>UnregisteredPanel.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Data.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +166,56 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CreateLesson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CreateProfessor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CreateSchool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProfessorUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SchoolUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ShowProfessor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ShowSchoolcs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\StudentShow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\StudentUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UnregisteredPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
