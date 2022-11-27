@@ -109,7 +109,7 @@ namespace SR50_2021_POP2022.Windows
             }
             else
             {
-                if (isReserved.IsChecked == true)
+                if (isReserved.IsChecked == true && studentList.SelectedIndex != -1)
                 {
                     Student student = FindStudent();
                     foundProfessor.Id = ide;
