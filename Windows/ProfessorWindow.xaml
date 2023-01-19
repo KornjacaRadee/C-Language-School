@@ -1,0 +1,15 @@
+﻿<Window x:Class="SR50_2021_POP2022.Windows.ProfessorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SR50_2021_POP2022.Windows"
+        mc:Ignorable="d"
+        Title="ProfessorWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Edit info" HorizontalAlignment="Left" Margin="34,40,0,0" VerticalAlignment="Top" Width="100" Height="58" Click="Button_Click"/>
+        <Button Content="Dodaj cas" HorizontalAlignment="Left" Margin="201,40,0,0" VerticalAlignment="Top" Height="58" Width="115" Click="Button_Click_1"/>
+        <Button Content="PREGLED CASOVA" HorizontalAlignment="Left" Height="58" Margin="354,40,0,0" VerticalAlignment="Top" Width="127" Click="Button_Click_2"/>
+
+    </Grid>
+</Window>

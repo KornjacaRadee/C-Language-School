@@ -47,7 +47,7 @@ namespace SR50_2021_POP2022.Windows
             var title = this.Title;
             string[] content = title.Split(',');
             string professorString = content[0];
-            Student foundProfessor = Data.Instance.StudentService.GetActiveStudentsByEmail(professorString)[0];
+            Student foundProfessor = Data.Instance.StudentService.GetActiveStudentsByEmail(professorString);
             string emailo = email.Text;
             string passwordo = password.Text;
             string firstnameo = firstname.Text;
@@ -106,7 +106,7 @@ namespace SR50_2021_POP2022.Windows
             var title = this.Title;
             string[] content = title.Split(',');
             string professorString = content[0];
-            Student foundProfessor = Data.Instance.StudentService.GetActiveStudentsByEmail(professorString)[0];
+            Student foundProfessor = Data.Instance.StudentService.GetActiveStudentsByEmail(professorString);
             email.Text = foundProfessor.User.Email;
             password.Text = foundProfessor.User.Password;
             firstname.Text = foundProfessor.User.FirstName;

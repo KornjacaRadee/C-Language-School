@@ -7,6 +7,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace SR50_2021_POP2022.Repositories
 {
@@ -17,7 +19,25 @@ namespace SR50_2021_POP2022.Repositories
         public void Add(Address address)
         {
             addresses.Add(address);
-            Save();
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            {
+                conn.Open();
+
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = @"
+                    insert into dbo.Addresses (Id, Street, StreetNumber, City, Country, IsActive)
+                    output inserted.Id
+                    values (@Id, @Street, @StreetNumber, @City, @Country, @IsActive)";
+
+                command.Parameters.Add(new SqlParameter("Id", address.Id));
+                command.Parameters.Add(new SqlParameter("Street", address.Street));
+                command.Parameters.Add(new SqlParameter("StreetNumber", address.StreetNumber));
+                command.Parameters.Add(new SqlParameter("City", address.City));
+                command.Parameters.Add(new SqlParameter("Country", address.Country));
+                command.Parameters.Add(new SqlParameter("IsActive", address.IsActive));
+
+                command.ExecuteScalar();
+            }
         }
 
         public void Add(List<Address> newAddresses)
@@ -33,24 +53,53 @@ namespace SR50_2021_POP2022.Repositories
 
         public void Delete(string id)
         {
-            Address address = GetById(id);
-
-            if (address != null)
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
             {
-                address.IsActive = false;
-            }
+                conn.Open();
 
-            Save();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = "update dbo.Addresses set IsActive=0 where Id=@Id";
+
+                command.Parameters.Add(new SqlParameter("Id", id));
+                command.ExecuteNonQuery();
+            }
         }
 
         public List<Address> GetAll()
         {
+            List<Address> addresses = new List<Address>();
+
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            {
+                string commandText = "select * from dbo.Addresses";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(commandText, conn);
+
+                DataSet ds = new DataSet();
+
+                dataAdapter.Fill(ds, "Addresses");
+
+                foreach (DataRow row in ds.Tables["Addresses"].Rows)
+                {
+                    var address = new Address
+                    {
+
+                        Id = row["Id"] as string,
+                        Street = row["Street"] as string,
+                        StreetNumber = row["StreetNumber"] as string,
+                        City = row["City"] as string,
+                        Country = row["Country"] as string,
+                        IsActive = (bool)row["IsActive"]
+                    };
+
+                    addresses.Add(address);
+                }
+            }
             return addresses;
         }
 
         public Address GetById(string id)
         {
-            return addresses.Find(u => u.Id == id);
+            return GetAll().Find(u => u.Id == id);
         }
 
         public void Update(string id, Address updatedAddress)

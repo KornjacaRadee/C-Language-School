@@ -48,7 +48,7 @@ namespace SR50_2021_POP2022.Windows
             string[] professorSelectionSplit = selectedPrfessorString.Split(',');
             string professorId = professorSelectionSplit[0];
             var professors = Data.Instance.ProfessorService.GetActiveProfessorsByEmail (professorId);
-            Professor finalProfessor = professors[0];
+            Professor finalProfessor = professors;
             return finalProfessor;
         }
 
@@ -68,7 +68,7 @@ namespace SR50_2021_POP2022.Windows
             string[] studentSelectionSplit = selectedStudentString.Split(',');
             string studentId = studentSelectionSplit[0];
             var professors = Data.Instance.StudentService.GetActiveStudentsByEmail(studentId);
-            Student finalStudent = professors[0];
+            Student finalStudent = professors;
             return finalStudent;
         }
 

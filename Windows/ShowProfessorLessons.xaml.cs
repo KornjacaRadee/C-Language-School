@@ -17,16 +17,20 @@ using System.Windows.Shapes;
 namespace SR50_2021_POP2022.Windows
 {
     /// <summary>
-    /// Interaction logic for ShowLesson.xaml
+    /// Interaction logic for ShowProfessorLessons.xaml
     /// </summary>
-    public partial class ShowLesson : Window
+    public partial class ShowProfessorLessons : Window
     {
-        public ShowLesson()
+        public ShowProfessorLessons()
         {
             InitializeComponent();
-            AddLessonsData();
+            
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddLessonsData();
 
+        }
         public class ShowProfessorItemStudent
         {
             public string Id { get; set; }
@@ -50,24 +54,30 @@ namespace SR50_2021_POP2022.Windows
         public void AddLessonsData()
         {
             var lessons = Data.Instance.LessonService.GetActiveLessons();
+            var title = this.Title;
+            string[] content = title.Split(',');
+            string professorString = content[0];
+            Professor foundProfessor = Data.Instance.ProfessorService.GetActiveProfessorsByEmail(professorString);
 
             foreach (Lesson professor in lessons)
             {
-                string reserved = "";
-                if (professor.IsReserved)
+                if (professor.Professor.User.Email.Contains( professorString))
                 {
-                    reserved = "Da";
-                    MessageBox.Show(professor.Id);
-                    professorGridShow.Items.Add(new ShowProfessorItemStudent() { Id = professor.Id, professor = professor.Professor.ToString(), date = professor.Date.ToString(), duration = professor.Duration, student = professor.Student.ToString(), isreserved = reserved });
-                }
-                else
-                {
-                    reserved = "Ne";
-                    professorGridShow.Items.Add(new ShowProfessorItem() { Id = professor.Id, professor = professor.Professor.ToString(), date = professor.Date.ToString(), duration = professor.Duration, isreserved = reserved });
+                    string reserved = "";
+                    if (professor.IsReserved)
+                    {
+                        reserved = "Da";
+                        MessageBox.Show(professor.Id);
+                        professorGridShow.Items.Add(new ShowProfessorItemStudent() { Id = professor.Id, professor = professor.Professor.ToString(), date = professor.Date.ToString(), duration = professor.Duration, student = professor.Student.ToString(), isreserved = reserved });
+                    }
+                    else
+                    {
+                        reserved = "Ne";
+                        professorGridShow.Items.Add(new ShowProfessorItem() { Id = professor.Id, professor = professor.Professor.ToString(), date = professor.Date.ToString(), duration = professor.Duration, isreserved = reserved });
+                    }
+
                 }
 
-
-                
 
             }
         }
@@ -91,14 +101,20 @@ namespace SR50_2021_POP2022.Windows
         private void deleteProfessorBtn_Click(object sender, RoutedEventArgs e)
         {
 
-
-            try
+            Lesson lesi = Data.Instance.LessonService.GetActiveLessonsById(SelectedEmail())[0];
+            if (lesi.IsReserved == false)
             {
-                Data.Instance.LessonService.Delete(SelectedEmail());
+                try
+                {
+                    Data.Instance.LessonService.Delete(SelectedEmail());
+                }
+                catch (UserNotFoundException)
+                {
+                    MessageBox.Show("Skola ne postoji");
+                }
             }
-            catch (UserNotFoundException)
-            {
-                MessageBox.Show("Skola ne postoji");
+            else {
+                MessageBox.Show("ZAKAZAN CAS NE MOZE DA SE BRISE!!!!!!!!!!!!!!!!!!!!");
             }
 
             professorGridShow.Items.Clear();
@@ -113,7 +129,5 @@ namespace SR50_2021_POP2022.Windows
 
 
         }
-
-
     }
 }

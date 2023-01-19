@@ -61,12 +61,12 @@ namespace SR50_2021_POP2022.Models
             {
                 FirstName = "Pera",
                 LastName = "Peric",
-                Email = "pera@gmail.com",
+                Email = "perakonj@gmail.com",
                 JMBG = "121346",
                 Password = "peki",
                 Gender = EGender.MUSKO,
                 Address = address,
-                UserType = EUserType.STUDENT,
+                UserType = EUserType.ADMINISTRATOR,
                 IsActive = true
             };
 
@@ -86,11 +86,11 @@ namespace SR50_2021_POP2022.Models
 
             User user2 = new User
             {
-                Email = "mika@gmail.com",
-                FirstName = "mika",
-                LastName = "Mikic",
-                JMBG = "121346",
-                Password = "zika",
+                Email = "profesor@gmail.com",
+                FirstName = "mdsaika",
+                LastName = "Midasdakic",
+                JMBG = "1213461",
+                Password = "zdasdasika",
                 Gender = EGender.ZENSKO,
                 UserType = EUserType.PROFESOR,
                 IsActive = true,
@@ -99,13 +99,13 @@ namespace SR50_2021_POP2022.Models
 
             User user3 = new User
             {
-                Email = "mika@gmail.com",
+                Email = "student@gmail.com",
                 FirstName = "mika",
                 LastName = "Mikic",
-                JMBG = "1312",
+                JMBG = "1312312321",
                 Password = "zika",
                 Gender = EGender.ZENSKO,
-                UserType = EUserType.ADMINISTRATOR,
+                UserType = EUserType.STUDENT,
                 IsActive = true,
                 Address = address
             };
@@ -115,11 +115,13 @@ namespace SR50_2021_POP2022.Models
             Professor profa1 = new Professor()
             {
                 User = user2,
-                languages = jeziki
+                languages = jeziki,
+                school = school1
+                
             };
             Student student1 = new Student
             {
-                User = user1
+                User = user3
             };
 
             Administrator administrator1 = new Administrator()
@@ -132,7 +134,7 @@ namespace SR50_2021_POP2022.Models
                 Id = "1",
                 Professor = profa1,
                 Date = date1,
-                Duration = "30",
+                Duration = "30",    
                 Student = student1,
                 IsReserved = true,
                 IsActive = true
@@ -140,17 +142,17 @@ namespace SR50_2021_POP2022.Models
 
             };
 
-            LessonService.Add(lesson1);
+            
 
 
-            SchoolService.Add(school1); // NE RADI IZ CREATE SCHOOL IZ NEKOG RAZLOGA??????
 
-
-            UserService.Add(user1);
-            AdministratorService.Add(user3);
-            ProfessorService.Add(profa1);
-            StudentService.Add(user1);
-            AddressService.Add(address);
+            //AddressService.Add(address);
+            //UserService.Add(user1);
+            //AdministratorService.Add(user3);
+            //ProfessorService.Add(profa1);
+            //StudentService.Add(student1);
+            //LessonService.Add(lesson1);
+            //SchoolService.Add(school1); // NE RADI IZ CREATE SCHOOL IZ NEKOG RAZLOGA??????
         }
 
         public void LoadData()

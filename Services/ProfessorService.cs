@@ -35,9 +35,9 @@ namespace SR50_2021_POP2022.Services
             return professorRepository.GetAll().Where(p => p.User.IsActive).ToList();
         }
 
-        public List<Professor> GetActiveProfessorsByEmail(string email)
+        public Professor GetActiveProfessorsByEmail(string email)
         {
-            return professorRepository.GetAll().Where(p => p.User.IsActive && p.User.Email.Contains(email)).ToList();
+            return professorRepository.GetAll().Find(p => p.User.IsActive && p.User.Email.Contains(email));
         }
         public List<Professor> GetActiveProfessorsOrderedByEmail()
         {

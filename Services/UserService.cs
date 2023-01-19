@@ -24,9 +24,14 @@ namespace SR50_2021_POP2022.Services
             return repostory.GetAll().Where(p => p.IsActive).ToList();
         }
 
-        public List<User> GetUserByJMBG(string JMBG)
+        public User GetUserById(string JMBG)
         {
-            return repostory.GetAll().Where(p => p.IsActive && p.JMBG.Contains(JMBG)).ToList();
+            return repostory.GetById(JMBG);
+        }
+
+        public User GetUserByJMBG(string JMBG)
+        {
+            return repostory.GetByJMBG(JMBG);
         }
 
 

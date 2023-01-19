@@ -33,6 +33,9 @@ namespace SR50_2021_POP2022
         {
             InitializeComponent();
             Data.Instance.Initialize();
+            Data.Instance.UserService.GetAll();
+            Data.Instance.StudentService.GetAll();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -41,7 +44,7 @@ namespace SR50_2021_POP2022
             string passwordBox = password.Text;
             var foundOne = Data.Instance.UserService.GetUserByJMBG(jmbgBox);
 
-            User found = foundOne[0];
+            User found = foundOne;
             if(found.Password.Equals(passwordBox))
             {
                 if (found.UserType.ToString().Equals("ADMINISTRATOR")) 
@@ -53,10 +56,16 @@ namespace SR50_2021_POP2022
                     window1.Title = "Admin panel";
                 }else if (found.UserType.ToString().Equals("PROFESOR")) 
                 {
-                    
-                }else
+                    ProfessorWindow window1 = new ProfessorWindow();
+                    window1.Show();
+                    window1.Title = found.Email + ",";
+                }
+                else
                 {
                     MessageBox.Show("Ulogovan student");
+                    ProfessorWindow window1 = new ProfessorWindow();
+                    window1.Show();
+                    window1.Title = found.Email+",";
                 }
             }
             else
@@ -65,9 +74,13 @@ namespace SR50_2021_POP2022
             }
         }
 
+        
         private void Unregistered_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Za vise opcija registrujte se!");
+            //MessageBox.Show(Data.Instance.ProfessorService.GetById("profesor@gmail.com").ToString());
+            //MessageBox.Show(Data.Instance.AddressService.GetById("1").ToString());
+
+
             UnregisteredPanel window1 = new UnregisteredPanel();
             window1.Show();
             window1.Title = "Neregistrovani korisnik panel";

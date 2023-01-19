@@ -11,7 +11,9 @@ namespace SR50_2021_POP2022.Services
     {
         List<User> GetAll();
         List<User> GetActiveUsers();
-        List<User> GetUserByJMBG(string JMBG);
+
+        User GetUserById(string JMBG);
+        User GetUserByJMBG(string JMBG);
         void Add(User user);
         void Set(List<User> users);
         void Update(string email, User user);

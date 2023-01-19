@@ -30,9 +30,9 @@ namespace SR50_2021_POP2022.Services
             return studentRepository.GetAll().Where(p => p.User.IsActive).ToList();
         }
 
-        public List<Student> GetActiveStudentsByEmail(string email)
+        public Student GetActiveStudentsByEmail(string email)
         {
-            return studentRepository.GetAll().Where(p => p.User.IsActive && p.User.Email.Contains(email)).ToList();
+            return studentRepository.GetAll().Find(p => p.User.IsActive && p.User.Email.Contains(email));
         }
 
         public List<Student> GetActiveStudentsByJMBG(string email)
@@ -45,18 +45,11 @@ namespace SR50_2021_POP2022.Services
             return studentRepository.GetAll().Where(p => p.User.IsActive).OrderBy(p => p.User.Email).ToList();
         }
 
-        public void Add(User user)
+        public void Add(Student student)
         {
-            userRepository.Add(user);
-
-            var student = new Student
-            {
-                User = user,
-                UserId = user.Email
-
-            };
 
             studentRepository.Add(student);
+            userRepository.Add(student.User);
         }
 
         public List<Student> GetAll()

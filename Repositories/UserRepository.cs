@@ -5,9 +5,11 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
 using SR50_2021_POP2022.Models;
 using SR50_2021_POP2022.CustomExceptions;
-
+using System;
 
 namespace SR50_2021_POP2022.Repositories
 {
@@ -23,7 +25,28 @@ namespace SR50_2021_POP2022.Repositories
         public void Add(User user)
         {
             users.Add(user);
-            Save();
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            {
+                conn.Open();
+
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = @"
+                    insert into dbo.Users (Email, Password, FirstName, LastName, Jmbg, Gender, UserType,Address,IsActive)
+                    output inserted.Email
+                    values (@Email, @Password, @FirstName, @LastName, @JMBG, @Gender, @UserType ,@Address, @IsActive)";
+
+                command.Parameters.Add(new SqlParameter("Email", user.Email));
+                command.Parameters.Add(new SqlParameter("Password", user.Password));
+                command.Parameters.Add(new SqlParameter("FirstName", user.FirstName));
+                command.Parameters.Add(new SqlParameter("LastName", user.LastName));
+                command.Parameters.Add(new SqlParameter("Jmbg", user.JMBG));
+                command.Parameters.Add(new SqlParameter("Gender", user.Gender));
+                command.Parameters.Add(new SqlParameter("UserType", user.UserType));
+                command.Parameters.Add(new SqlParameter("Address", user.Address.Id));
+                command.Parameters.Add(new SqlParameter("IsActive", user.IsActive));
+
+                command.ExecuteScalar();
+            }
         }
 
         public void Add(List<User> newUsers)
@@ -39,33 +62,61 @@ namespace SR50_2021_POP2022.Repositories
 
         public void Delete(string email)
         {
-            User user = GetById(email);
-
-            if (user != null)
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
             {
-                user.IsActive = false;
-            }
-            else
-            {
-                throw new UserNotFoundException();
-            }
+                conn.Open();
 
-            Save();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = "update dbo.Users set IsActive=0 where Email=@email";
+
+                command.Parameters.Add(new SqlParameter("email", email));
+                command.ExecuteNonQuery();
+            }
         }
 
         public List<User> GetAll()
         {
-            return users;
-        }
+            List<User> users = new List<User>();
 
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            {
+                string commandText = "select * from dbo.Users";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(commandText, conn);
+
+                DataSet ds = new DataSet();
+
+                dataAdapter.Fill(ds, "Users");
+
+                foreach (DataRow row in ds.Tables["Users"].Rows)
+                {
+                    Address adresa = Data.Instance.AddressService.GetActiveAddressById(row["Address"] as String);
+                    var user = new User
+                    {
+
+                        FirstName = row["FirstName"] as string,
+                        LastName = row["LastName"] as string,
+                        Email = row["Email"] as string,
+                        Password = row["Password"] as string,
+                        JMBG = row["Jmbg"] as string,
+                        Gender = (EGender)Enum.Parse(typeof(EGender), row["Gender"] as string),
+                        Address = adresa,
+                        UserType = (EUserType)Enum.Parse(typeof(EUserType), row["UserType"] as string),
+                        IsActive = (bool)row["IsActive"]
+                    };
+
+                    users.Add(user);
+                }
+            }
+                return users;
+        }
         public User GetById(string email)
         {
-            return users.Find(u => u.Email == email);
+            return GetAll().Find(u => u.Email == email);
         }
 
         public User GetByJMBG(string JMBG)
         {
-            return users.Find(u => u.JMBG == JMBG && u.IsActive);
+            return GetAll().Find(u => u.JMBG == JMBG && u.IsActive);
         }
 
 
@@ -74,14 +125,35 @@ namespace SR50_2021_POP2022.Repositories
         {
             User user = GetById(email);
 
-            if (user != null)
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
             {
-                user.Address = updatedUser.Address;
-                user.FirstName = updatedUser.FirstName;
-                user.LastName = updatedUser.LastName;
-                user.UserType = updatedUser.UserType;
+                conn.Open();
+
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = @"update dbo.Users set 
+                        Email = @Email,
+                        FirstName = @FirstName,
+                        LastName = @LastName,
+                        Password = @Password,
+                        JMBG = @Jmbg,
+                        Gender = @Gender,
+                        UserType = @UserType,
+                        Address = @Address,
+                        IsActive = @IsActive
+                        where email=@Email";
+
+                command.Parameters.Add(new SqlParameter("Email", user.Email));
+                command.Parameters.Add(new SqlParameter("Password", user.Password));
+                command.Parameters.Add(new SqlParameter("FirstName", user.FirstName));
+                command.Parameters.Add(new SqlParameter("LastName", user.LastName));
+                command.Parameters.Add(new SqlParameter("Jmbg", user.JMBG));
+                command.Parameters.Add(new SqlParameter("Gender", user.Gender));
+                command.Parameters.Add(new SqlParameter("UserType", user.UserType));
+                command.Parameters.Add(new SqlParameter("Address", "user.Address.Id"));
+                command.Parameters.Add(new SqlParameter("IsActive", user.IsActive));
+
+                command.ExecuteScalar();
             }
-            Save();
         }
 
         public void Save()

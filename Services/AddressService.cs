@@ -32,9 +32,9 @@ namespace SR50_2021_POP2022.Services
             return addressRepository.GetAll().Where(p => p.IsActive).ToList();
         }
 
-        public List<Address> GetActiveAddressesById(string id)
+        public Address GetActiveAddressById(string id)
         {
-            return addressRepository.GetAll().Where(p => p.IsActive && p.Id.Contains(id)).ToList();
+            return addressRepository.GetById(id);
         }
         public List<Address> GetActiveProfessorsOrderedById()
         {

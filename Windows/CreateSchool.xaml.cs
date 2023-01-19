@@ -106,7 +106,8 @@ namespace SR50_2021_POP2022.Windows
                 Id = ide,
                 Name = namee,
                 Address = adressa,
-                Languages = langs
+                Languages = langs,
+                IsActive = true
             };
 
             Data.Instance.SchoolService.Add(schoola);

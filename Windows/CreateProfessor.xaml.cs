@@ -148,7 +148,11 @@ namespace SR50_2021_POP2022.Windows
             }
             else if (tipStr.Equals("STUDENT"))
             {
-                Data.Instance.StudentService.Add(user);
+                Student stuko = new Student()
+                {
+                    User = user
+                };
+                Data.Instance.StudentService.Add(stuko);
                 Data.Instance.Initialize();
                 MessageBox.Show("Uspesno dodat STUDENT!");
             }

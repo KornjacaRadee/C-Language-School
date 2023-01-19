@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <DataGrid Name="professorGridShow" HorizontalAlignment="Left" Height="176" VerticalAlignment="Top" Width="542" Margin="34,94,0,0" >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id}" Header="Id" MinWidth="90"/>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" MinWidth="90"/>
                 <DataGridTextColumn Binding="{Binding professor}" Header="Profesor" MinWidth="90"/>
                 <DataGridTextColumn Binding="{Binding date}" Header="Datum i vreme" MinWidth="90"/>
                 <DataGridTextColumn Binding="{Binding duration}" Header="Trajanje" MinWidth="90"/>

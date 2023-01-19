@@ -12,7 +12,7 @@ namespace SR50_2021_POP2022.Services
         List<Address> GetAll();
         Address GetById(string id);
         List<Address> GetActiveAddresses();
-        List<Address> GetActiveAddressesById(string id);
+        Address GetActiveAddressById(string id);
         List<Address> GetActiveProfessorsOrderedById();
         void Add(Address address);
         void Set(List<Address> addresses);

@@ -8,6 +8,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
+using System.Windows.Controls;
 
 namespace SR50_2021_POP2022.Repositories
 {
@@ -23,7 +26,26 @@ namespace SR50_2021_POP2022.Repositories
         public void Add(Lesson lesson)
         {
             lessons.Add(lesson);
-            Save();
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            {
+                conn.Open();
+
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = @"
+                    insert into dbo.Lesson (Id, Professor, Date, Duration, Student, IsReserved, IsActive)
+                    output inserted.Id
+                    values (@Id, @Professor, @Date, @Duration, @Student, @IsReserved, @IsActive)";
+
+                command.Parameters.Add(new SqlParameter("Id", lesson.Id));
+                command.Parameters.Add(new SqlParameter("Professor", lesson.Professor.User.Email));
+                command.Parameters.Add(new SqlParameter("Date", lesson.Date.ToString()));
+                command.Parameters.Add(new SqlParameter("Duration", lesson.Duration));
+                command.Parameters.Add(new SqlParameter("Student", lesson.Student.User.Email));
+                command.Parameters.Add(new SqlParameter("IsReserved", lesson.IsReserved));
+                command.Parameters.Add(new SqlParameter("IsActive", lesson.IsActive));
+
+                command.ExecuteScalar();
+            }
         }
 
         public void Add(List<Lesson> newLessons)
@@ -55,6 +77,36 @@ namespace SR50_2021_POP2022.Repositories
 
         public List<Lesson> GetAll()
         {
+            List<Lesson> lessons = new List<Lesson>();
+            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            {
+                string commandText = "select * from dbo.Lesson";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(commandText, conn);
+
+                DataSet ds = new DataSet();
+
+                dataAdapter.Fill(ds, "Lesson");
+
+                foreach (DataRow row in ds.Tables["Lesson"].Rows)
+                {
+                    Professor professor = Data.Instance.ProfessorService.GetActiveProfessorsByEmail((row["Professor"] as String));
+                    Student student = Data.Instance.StudentService.GetActiveStudentsByEmail((row["Student"] as String));
+                    String my_date_string = row["Date"] as string;
+
+                    var user = new Lesson
+                    {
+                        Id = row["Id"] as string,
+                        Professor = professor,
+                        Student = student,
+                        Date = Convert.ToDateTime(my_date_string),
+                        Duration = row["Duration"] as string,
+                        IsReserved = (bool)row["IsReserved"],
+                        IsActive = (bool)row["IsActive"]
+                    };
+
+                    lessons.Add(user);
+                }
+            }
             return lessons;
         }
 

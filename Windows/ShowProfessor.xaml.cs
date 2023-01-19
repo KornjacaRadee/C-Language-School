@@ -33,6 +33,8 @@ namespace SR50_2021_POP2022.Windows
             public string jmbg { get; set; }
             public string pol { get; set; }
             public string adresa { get; set; }
+
+            public string skola { get; set; }
         }
 
         public string SelectedEmail()
@@ -51,7 +53,7 @@ namespace SR50_2021_POP2022.Windows
                 string adresaCela = professor.User.Address.Street + ", " + professor.User.Address.StreetNumber + ", " + professor.User.Address.City;
 
 
-                professorGridShow.Items.Add(new ShowProfessorItem() { email = professor.User.Email, lastName = professor.User.LastName, firstName = professor.User.FirstName, jmbg = professor.User.JMBG, pol = professor.User.Gender.ToString(), adresa = adresaCela });
+                professorGridShow.Items.Add(new ShowProfessorItem() { email = professor.User.Email, lastName = professor.User.LastName, firstName = professor.User.FirstName, jmbg = professor.User.JMBG, pol = professor.User.Gender.ToString(), adresa = adresaCela, skola = professor.school.ToString() });
             }
         }
 
@@ -77,10 +79,11 @@ namespace SR50_2021_POP2022.Windows
             try
             {
                 Data.Instance.ProfessorService.Delete(SelectedEmail());
+                MessageBox.Show("Obrisan");
             }
             catch (UserNotFoundException)
             {
-                MessageBox.Show("Skola ne postoji");
+                MessageBox.Show("Greska");
             }
 
             professorGridShow.Items.Clear();

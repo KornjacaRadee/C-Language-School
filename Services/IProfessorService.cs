@@ -12,7 +12,7 @@ namespace SR50_2021_POP2022.Services
         List<Professor> GetAll();
         Professor GetById(string email);
         List<Professor> GetActiveProfessors();
-        List<Professor> GetActiveProfessorsByEmail(string email);
+        Professor GetActiveProfessorsByEmail(string email);
         List<Professor> GetActiveProfessorsOrderedByEmail();
         void Add(Professor professor);
         void Set(List<Professor> professors);

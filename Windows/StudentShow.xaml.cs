@@ -25,6 +25,7 @@ namespace SR50_2021_POP2022.Windows
         {
             InitializeComponent();
             AddProfessorsData();
+            Data.Instance.StudentService.GetAll();
         }
         public class ShowProfessorItem
         {
@@ -49,7 +50,7 @@ namespace SR50_2021_POP2022.Windows
             {
                 string adresaCela = professor.User.Address.Street + ", " + professor.User.Address.StreetNumber + ", " + professor.User.Address.City;
 
-
+                
                 professorGridShow.Items.Add(new ShowProfessorItem() { email = professor.User.Email, lastName = professor.User.LastName, firstName = professor.User.FirstName, jmbg = professor.User.JMBG, pol = professor.User.Gender.ToString(), adresa = adresaCela });
             }
         }
